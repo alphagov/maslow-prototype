@@ -1,0 +1,14 @@
+<%= semantic_form_for @need, :html => { :class => "form-horizontal" } do |f| %>
+  <%= f.inputs "Story" do %>
+    <%= f.input :story_role, :label => "As a", :input_html => { :class => "span3" } %>
+    <%= f.input :story_goal, :label => "I need to", :input_html => { :class => "span8" } %>
+    <%= f.input :story_benefit, :label => "so that", :input_html => { :class => "span8" } %>
+  <% end %>
+
+  <%= f.inputs "Describe the need" do %>
+    <%= f.input :organisation_id, :as => :select, :collection => Organisation.all %>
+  <% end %>
+
+  <%= f.actions %>
+<% end %>
+

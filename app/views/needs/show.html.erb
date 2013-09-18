@@ -1,0 +1,14 @@
+<article class="need">
+  <div class="row">
+    <h1 class="reference span2"><span><%= @need.whole_reference %></span></h1>
+    <h2 class="story span10"><%= @need.story %></h2>
+  </div>
+
+  <div class="row">
+    <% if @need.organisation.present? %>
+      <p class="span12"><%= @need.organisation.name %></p>
+    <% else %>
+      <p class="span12">No organisation</p>
+    <% end %>
+  </div>
+</article>

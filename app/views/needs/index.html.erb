@@ -1,0 +1,8 @@
+<p class="add-link"><%= link_to "Add a new user need", new_need_path, :class => "btn" %></p>
+
+<table class="table table-striped">
+  <tbody>
+    <%= render :partial => "need_row", :collection => @needs, :as => "need" %>
+  </tbody>
+</table>
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Maslow</title>
+
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header class="navbar navbar-static-top">
+    <div class="navbar-inner">
+      <%= link_to "Maslow", needs_path, :class => "brand" %>
+    </div>
+  </header>
+
+  <div class="container">
+    <% flash.each do |id,message| %>
+      <div class="alert"><%= message %></div>
+    <% end %>
+
+    <%= yield %>
+  </div>
+</body>
+</html>
