@@ -6,7 +6,14 @@
   <% end %>
 
   <%= f.inputs "Information about this need" do %>
-    <%= f.input :organisation_id, :as => :select, :collection => Organisation.in_name_order, :input_html => { :class => "organisation-select span8" } %>
+    <%= f.input :organisation_ids,
+                :as => :select,
+                :collection => Organisation.in_name_order,
+                :label => "Organisations",
+                :input_html => {
+                  :multiple => true,
+                  :class => "organisation-select span8"
+                } %>
   <% end %>
 
   <%= f.inputs "Justify the need" do %>

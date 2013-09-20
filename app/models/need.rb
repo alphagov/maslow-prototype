@@ -33,7 +33,7 @@ class Need
 
   before_validation :assign_new_reference, :update_completion
 
-  belongs_to :organisation
+  has_and_belongs_to_many :organisations
 
   def story
     "As a #{story_role} I need to #{story_goal} so that #{story_benefit}"
