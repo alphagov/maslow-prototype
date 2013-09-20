@@ -5,6 +5,7 @@ gem 'rails', '3.2.14'
 gem 'mongoid', '3.1.4'
 
 gem 'bootstrap-sass', '2.3.2.2'
+gem 'chosen-rails'
 gem 'jquery-rails'
 
 gem 'formtastic', '2.2.1'

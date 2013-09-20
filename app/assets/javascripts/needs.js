@@ -1,0 +1,5 @@
+$(function(){
+
+  $('.organisation-select').chosen();
+
+})
