@@ -35,6 +35,9 @@ class Need
 
   has_and_belongs_to_many :organisations
 
+  embeds_many :annotations
+  accepts_nested_attributes_for :annotations, :allow_destroy => true, :reject_if => :all_blank
+
   def story
     "As a #{story_role} I need to #{story_goal} so that #{story_benefit}"
   end

@@ -1,3 +1,5 @@
+$blue: #2b8cc4;
+
 article.need {
 
   h1.reference {
@@ -9,6 +11,8 @@ article.need {
   h2.title {
     font-weight: normal;
     padding: 10px 0;
+  }
+  h2 {
   }
 
   .story {
@@ -23,14 +27,14 @@ article.need {
 
   .justification {
     h2 {
-      font-weight: normal;
-      font-size: 26px;
+      font-weight: bold;
+      font-size: 20px;
     }
   }
 
   .complete {
     margin: 10px 0 0;
-    border: 2px solid #2b8cc4;
+    border: 2px solid $blue;
     padding: 10px;
     font-size: 18px;
 
@@ -43,4 +47,62 @@ article.need {
     }
   }
 
+  ul.annotation-list {
+    border-top: 1px solid #eee;
+    margin-left: 0;
+
+    li {
+      padding: 5px 0;
+      border-bottom: 1px solid #eee;
+      list-style: none;
+      font-size: 13px;
+
+      span.format {
+        display: inline-block;
+        padding-right: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+      span.metadata {
+        color: #888;
+      }
+    }
+  }
+
+}
+
+form {
+  .annotations {
+    margin-bottom: 30px;
+
+    .annotation {
+      padding: 15px;
+      background: #fff;
+      border: 1px solid #eee;
+      border-left: 5px solid $blue;
+      margin-bottom: 15px;
+      position: relative;
+
+      &.link { border-left-color: $blue; }
+      &.priority { border-left-color: #85994b; }
+      &.legislation { border-left-color: #f47738; }
+
+      span.format {
+        display: block;
+        position: absolute;
+        transform: rotate(90deg);
+        transform-origin: bottom left;
+        font-size: 20px;
+        color: #888;
+        margin: -25px 0 0 -5px;
+        font-weight: bold;
+        text-align: right;
+      }
+
+      div:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }

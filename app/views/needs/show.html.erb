@@ -11,6 +11,15 @@
   </div>
 
   <div class="row">
+    <div class="span4">
+      <div class="complete">
+        <div class="progress <%= progress_class(@need.completion) %>">
+          <div class="bar" style="width: <%= @need.completion %>%"></div>
+        </div>
+        <p>This need's information is <%= @need.completion %>% complete.</p>
+        <p><%= link_to "Update need", edit_need_path(@need), :class => "btn" %></p>
+      </div>
+    </div>
     <div class="span8 justification">
       <h2>Why is this needed?</h2>
       <p>
@@ -24,8 +33,16 @@
       <h2>Evidence of the need</h2>
       <% if @need.evidence.present? %>
         <p><%= @need.evidence %></p>
-      <% else %>
+      <% elsif !@need.annotations.any? %>
         <p><em>No evidence provided yet.</em></p>
+      <% end %>
+
+      <% if @need.annotations.any? %>
+      <ul class="annotation-list">
+        <% @need.annotations.each do |annotation| %>
+          <%= render :partial => "#{annotation.format}_annotation", :locals => { :annotation => annotation } %>
+        <% end %>
+      </ul>
       <% end %>
 
       <h2>How do we know when it's done?</h2>
@@ -34,15 +51,6 @@
       <% else %>
         <p><em>No criteria provided yet.</em></p>
       <% end %>
-    </div>
-    <div class="span4">
-      <div class="complete">
-        <div class="progress <%= progress_class(@need.completion) %>">
-          <div class="bar" style="width: <%= @need.completion %>%"></div>
-        </div>
-        <p>This need's information is <%= @need.completion %>% complete.</p>
-        <p><%= link_to "Update need", edit_need_path(@need), :class => "btn" %></p>
-      </div>
     </div>
   </div>
 </article>

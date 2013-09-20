@@ -16,6 +16,8 @@ class NeedsController < ApplicationController
   def create
     @need = Need.new(params[:need])
 
+    modify_annotations(:new) and return if params[:annotation_action]
+
     if @need.save
       flash[:notice] = "Need has been created"
       redirect_to need_path(@need)
@@ -30,7 +32,11 @@ class NeedsController < ApplicationController
   end
 
   def update
-    if @need.update_attributes(params[:need])
+    @need.assign_attributes(params[:need])
+
+    modify_annotations(:edit) and return if params[:annotation_action]
+
+    if @need.save
       flash[:notice] = "Need has been saved"
       redirect_to need_path(@need)
     else
@@ -42,5 +48,19 @@ class NeedsController < ApplicationController
   private
   def find_need
     @need = Need.find(params[:id])
+  end
+
+  def modify_annotations(action)
+    case params[:annotation_action]
+    when "Add link"
+      @need.annotations << Annotation::Link.new
+    when "Add priority"
+      @need.annotations << Annotation::Priority.new
+    when "Add legislation"
+      @need.annotations << Annotation::Legislation.new
+    end
+
+    @need.annotations.each {|a| a.errors.clear }
+    render :action => action
   end
 end

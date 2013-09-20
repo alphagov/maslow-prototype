@@ -5,6 +5,8 @@
     <%= f.input :story_benefit, :label => "so that", :input_html => { :class => "span8" } %>
   <% end %>
 
+  <%= f.actions %>
+
   <%= f.inputs "Information about this need" do %>
     <%= f.input :organisation_ids,
                 :as => :select,
@@ -23,7 +25,27 @@
                 :collection => [nil] + Need::JUSTIFICATIONS,
                 :member_label => method(:justification_label),
                 :include_blank => "None" %>
+
     <%= f.input :evidence, :as => :text, :label => "Evidence of the need", :input_html => { :class => "span8", :rows => 4 } %>
+
+    <div class="annotations">
+      <%= f.semantic_fields_for :annotations do |f| %>
+        <div class="annotation <%= f.object.format %> span9 offset2">
+          <span class="format"><%= f.object.format.humanize %></span>
+          <%= render :partial => "#{f.object.format}_annotation_form", :locals => { :f => f } %>
+
+          <%= f.input :_type, :as => :hidden %>
+          <%= f.input :_destroy, :as => :boolean, :label => "Delete?" %>
+        </div>
+      <% end %>
+
+      <div class="controls">
+        <%= f.submit "Add link", :name => "annotation_action", :class => "btn" %>
+        <%= f.submit "Add priority", :name => "annotation_action", :class => "btn" %>
+        <%= f.submit "Add legislation", :name => "annotation_action", :class => "btn" %>
+      </div>
+    </div>
+
     <%= f.input :done_criteria, :as => :text, :label => "How do we know when it's done?", :input_html => { :class => "span8", :rows => 4 } %>
   <% end %>
 

@@ -1,0 +1,15 @@
+<li class="annotation priority">
+  <span class="format">Priority</span>
+  <% if annotation.overall.present? %>
+    <%= annotation.overall %>
+  <% else %>
+    Not complete
+  <% end %>
+  &mdash;
+  <span class="metadata">
+    Popular: <%= annotation.popular || "&mdash;".html_safe %>,
+    Risk: <%= annotation.risk || "&mdash;".html_safe %>,
+    Problematic: <%= annotation.problematic || "&mdash;".html_safe %>,
+    Functional Gap: <%= annotation.functional_gap || "&mdash;".html_safe %>
+  </span>
+</li>
