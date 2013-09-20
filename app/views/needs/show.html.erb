@@ -1,14 +1,48 @@
 <article class="need">
   <div class="row">
     <h1 class="reference span2"><span><%= @need.whole_reference %></span></h1>
-    <h2 class="story span10"><%= @need.story %></h2>
+    <h2 class="title span10"><%= @need.story_goal.humanize %></h2>
   </div>
 
   <div class="row">
-    <% if @need.organisation.present? %>
-      <p class="span12"><%= @need.organisation.name %></p>
-    <% else %>
-      <p class="span12">No organisation</p>
-    <% end %>
+    <div class="span12 story">
+      <p><%= @need.story %></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span8 justification">
+      <h2>Why is this needed?</h2>
+      <p>
+        <% if @need.justification.present? %>
+          <%= t "need.justifications.#{@need.justification}" %>
+        <% else %>
+          <p><em>No justification provided yet.</em></p>
+        <% end %>
+      </p>
+
+      <h2>Evidence of the need</h2>
+      <% if @need.evidence.present? %>
+        <p><%= @need.evidence %></p>
+      <% else %>
+        <p><em>No evidence provided yet.</em></p>
+      <% end %>
+
+      <h2>How do we know when it's done?</h2>
+      <% if @need.done_criteria.present? %>
+        <p><%= @need.done_criteria %></p>
+      <% else %>
+        <p><em>No criteria provided yet.</em></p>
+      <% end %>
+    </div>
+    <div class="span4">
+      <div class="complete">
+        <div class="progress <%= progress_class(@need.completion) %>">
+          <div class="bar" style="width: <%= @need.completion %>%"></div>
+        </div>
+        <p>This need is <%= @need.completion %>% complete.</p>
+        <p><%= link_to "Update need", edit_need_path(@need), :class => "btn" %></p>
+      </div>
+    </div>
   </div>
 </article>

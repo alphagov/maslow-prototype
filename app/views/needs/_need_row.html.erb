@@ -1,4 +1,5 @@
 <tr>
   <td><%= link_to need.whole_reference, need_path(need), :class => "reference" %></td>
-  <td><%= need.story %></td>
+  <td><%= need.story_goal.humanize %></td>
+  <td><%= need.completion %>% complete</td>
 </tr>

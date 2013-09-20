@@ -2,4 +2,14 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  need:
+    justifications:
+      no_justification: No justification
+      only_the_government_provides: it’s something that only the government does
+      clear_demand_from_users: there is clear demand for it from users
+      legally_obliged_to_provide: the government is legally obliged to provide it
+      prerequisite_to_government_service: it’s something people need to know before they can do something that’s related to government
+      government_provides_or_pays_for: "it’s something the government provides, does or pays for"
+      inherent_to_rights_and_obligations: it’s inherent to a person’s or an organisation’s rights and obligations
+      advice_for_statutory_obligation: "it’s advice that helps people comply with their statutory obligations"
+

@@ -6,9 +6,41 @@ article.need {
 
     span { padding: 30px; font-weight: normal; text-align: center; display: block; }
   }
-  h2.story {
+  h2.title {
     font-weight: normal;
     padding: 10px 0;
+  }
+
+  .story {
+    background: #f6f6f6;
+    padding: 15px;
+
+    p {
+      font-size: 24px;
+      line-height: 30px;
+    }
+  }
+
+  .justification {
+    h2 {
+      font-weight: normal;
+      font-size: 26px;
+    }
+  }
+
+  .complete {
+    margin: 10px 0 0;
+    border: 2px solid #2b8cc4;
+    padding: 10px;
+    font-size: 18px;
+
+    .progress {
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+    p:nth-of-type(1) {
+      margin-bottom: 15px;
+    }
   }
 
 }

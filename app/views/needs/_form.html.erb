@@ -1,12 +1,23 @@
 <%= semantic_form_for @need, :html => { :class => "form-horizontal" } do |f| %>
   <%= f.inputs "Story" do %>
-    <%= f.input :story_role, :label => "As a", :input_html => { :class => "span3" } %>
+    <%= f.input :story_role, :collection => Need::ROLES, :label => "As a", :input_html => { :class => "span3" } %>
     <%= f.input :story_goal, :label => "I need to", :input_html => { :class => "span8" } %>
     <%= f.input :story_benefit, :label => "so that", :input_html => { :class => "span8" } %>
   <% end %>
 
-  <%= f.inputs "Describe the need" do %>
-    <%= f.input :organisation_id, :as => :select, :collection => Organisation.all %>
+  <%= f.inputs "Information about this need" do %>
+    <%= f.input :organisation_id, :as => :select, :collection => Organisation.in_name_order %>
+  <% end %>
+
+  <%= f.inputs "Justify the need" do %>
+    <%= f.input :justification,
+                :as => :radio,
+                :label => "Why are we doing this need?",
+                :collection => [nil] + Need::JUSTIFICATIONS,
+                :member_label => method(:justification_label),
+                :include_blank => "None" %>
+    <%= f.input :evidence, :as => :text, :label => "Evidence of the need", :input_html => { :class => "span8", :rows => 4 } %>
+    <%= f.input :done_criteria, :as => :text, :label => "How do we know when it's done?", :input_html => { :class => "span8", :rows => 4 } %>
   <% end %>
 
   <%= f.actions %>

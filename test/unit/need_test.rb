@@ -9,7 +9,10 @@ class NeedTest < ActiveSupport::TestCase
         :story_role => "user",
         :story_goal => "pay my council tax",
         :story_benefit => "I do not receive a fine",
-        :organisation_id => @organisation.id
+        :organisation_id => @organisation.id,
+        :justification => "only_the_government_provides",
+        :evidence => "100k search requests for 'council tax'",
+        :done_criteria => "Informs users about conditions A & B of statute"
       }
     end
 
@@ -25,6 +28,9 @@ class NeedTest < ActiveSupport::TestCase
       assert_equal "pay my council tax", need.story_goal
       assert_equal "I do not receive a fine", need.story_benefit
       assert_equal "Ministry of Magic", need.organisation.name
+      assert_equal "only_the_government_provides", need.justification
+      assert_equal "100k search requests for 'council tax'", need.evidence
+      assert_equal "Informs users about conditions A & B of statute", need.done_criteria
     end
 
     should "assign an incremented identifier to a new need" do
@@ -39,11 +45,17 @@ class NeedTest < ActiveSupport::TestCase
       assert_equal 101, need_four.reference
     end
 
-    should "not be valid without a story role" do
-      need = Need.new(@atts.merge(:story_role => ''))
+    should "calculate the completion percentage on save" do
+      need = Need.new(@atts)
+      need.save!
 
-      refute need.valid?
-      assert need.errors.has_key?(:story_role)
+      assert_equal 100, need.completion
+
+      need.justification = ""
+      need.evidence = ""
+      need.save!
+
+      assert_equal 66, need.completion
     end
 
     should "not be valid without a story goal" do
@@ -51,13 +63,6 @@ class NeedTest < ActiveSupport::TestCase
 
       refute need.valid?
       assert need.errors.has_key?(:story_goal)
-    end
-
-    should "not be valid without a story benefit" do
-      need = Need.new(@atts.merge(:story_benefit => ''))
-
-      refute need.valid?
-      assert need.errors.has_key?(:story_benefit)
     end
 
     should "not be valid with a duplicate need reference" do
@@ -86,7 +91,7 @@ class NeedTest < ActiveSupport::TestCase
 
     should "return a formatted reference" do
       reference = @need.whole_reference
-      assert_equal "N42", reference
+      assert_equal "42", reference
     end
   end
 
