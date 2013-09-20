@@ -40,7 +40,7 @@
         <div class="progress <%= progress_class(@need.completion) %>">
           <div class="bar" style="width: <%= @need.completion %>%"></div>
         </div>
-        <p>This need is <%= @need.completion %>% complete.</p>
+        <p>This need's information is <%= @need.completion %>% complete.</p>
         <p><%= link_to "Update need", edit_need_path(@need), :class => "btn" %></p>
       </div>
     </div>
