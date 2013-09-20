@@ -6,10 +6,12 @@ class Need
   field :story_role,    type: String
   field :story_goal,    type: String
   field :story_benefit, type: String
-  field :justification, type: String
+  field :justification, type: Array
   field :evidence,      type: String
   field :done_criteria, type: String
   field :completion,    type: Integer, default: 0
+
+  default_scope order_by([:reference, :asc])
 
   ROLES = [
     "user"
@@ -23,15 +25,15 @@ class Need
     "inherent_to_rights_and_obligations",
     "advice_for_statutory_obligation"
   ]
-  COMPLETION_FIELDS = [:story_role, :story_goal, :story_benefit, :justification, :evidence, :done_criteria]
+  COMPLETION_FIELDS = [:story_role, :story_goal, :story_benefit, :completed_justification, :evidence, :done_criteria]
 
   validates :story_goal, :presence => true
   validates :reference, :presence => true, :uniqueness => { }
-  validates :justification, :inclusion => { :in => JUSTIFICATIONS, :allow_blank => true }
+  # validates :justification, :inclusion => { :in => JUSTIFICATIONS, :allow_blank => true }
   validates :story_role, :inclusion => { :in => ROLES, :allow_blank => true }
   validates :completion, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
 
-  before_validation :assign_new_reference, :update_completion
+  before_validation :assign_new_reference, :remove_blank_justifications, :update_completion
 
   has_and_belongs_to_many :organisations
 
@@ -46,10 +48,18 @@ class Need
     "#{reference}"
   end
 
+  def completed_justification
+    justification.any?
+  end
+
   private
   def assign_new_reference
     last_assigned = Need.order_by([:reference, :desc]).first
     self.reference ||= last_assigned.present? ? last_assigned.reference + 1 : 1
+  end
+
+  def remove_blank_justifications
+    justification.reject!(&:blank?)
   end
 
   def update_completion

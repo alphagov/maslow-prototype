@@ -20,11 +20,10 @@
 
   <%= f.inputs "Justify the need" do %>
     <%= f.input :justification,
-                :as => :radio,
+                :as => :check_boxes,
                 :label => "Why are we doing this need?",
-                :collection => [nil] + Need::JUSTIFICATIONS,
-                :member_label => method(:justification_label),
-                :include_blank => "None" %>
+                :collection => Need::JUSTIFICATIONS,
+                :member_label => method(:justification_label) %>
 
     <%= f.input :evidence, :as => :text, :label => "Evidence of the need", :input_html => { :class => "span8", :rows => 4 } %>
 
